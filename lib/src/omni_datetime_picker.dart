@@ -21,6 +21,7 @@ class OmniDateTimePicker extends StatefulWidget {
   final DateTime? startLastDate;
 
   final bool? is24HourMode;
+  final bool? isShowTimePicker;
   final bool? isShowSeconds;
 
   final Color? primaryColor;
@@ -41,6 +42,7 @@ class OmniDateTimePicker extends StatefulWidget {
     this.is24HourMode,
     this.isShowSeconds,
     this.primaryColor,
+    this.isShowTimePicker,
     this.backgroundColor,
     this.calendarTextColor,
     this.tabTextColor,
@@ -123,9 +125,8 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                         );
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: TimePickerSpinner(
+                    if(isShowTimePicker)
+                    TimePickerSpinner(
                         is24HourMode: widget.is24HourMode ?? false,
                         isShowSeconds: widget.isShowSeconds ?? false,
                         normalTextStyle: widget.timeSpinnerTextStyle ??
@@ -153,7 +154,7 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                           startDateTime = tempStartDateTime;
                         },
                       ),
-                    ),
+                    const SizedBox(height:16.0),
                   ],
                 ),
               ),
