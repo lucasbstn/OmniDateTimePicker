@@ -125,7 +125,7 @@ class _OmniDateTimePickerState extends State<OmniDateTimePicker>
                         );
                       },
                     ),
-                    if(isShowTimePicker)
+                    if(widget.isShowTimePicker ?? true)
                     TimePickerSpinner(
                         is24HourMode: widget.is24HourMode ?? false,
                         isShowSeconds: widget.isShowSeconds ?? false,
