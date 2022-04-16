@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/src/time_picker_spinner.dart';
 
+
 /// Omni DateTimeRange Picker
 ///
 /// If properties are not given, default value will be used.
@@ -180,125 +181,115 @@ class _OmniDateTimeRangePickerState extends State<OmniDateTimeRangePicker>
               ],
             ),
             Container(
-              constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height - 180),
               decoration: BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
               ),
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
+              child: AnimatedBuilder(
+                animation: _tabController,
+                builder: (context, _) => [
                   /// Start date
-                  SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CalendarDatePicker(
-                          initialDate:
-                              widget.startInitialDate ?? DateTime.now(),
-                          firstDate: widget.startFirstDate ??
-                              DateTime.now()
-                                  .subtract(const Duration(days: 3652)),
-                          lastDate: widget.startLastDate ??
-                              DateTime.now().add(const Duration(days: 3652)),
-                          onDateChanged: (dateTime) {
-                            startDateTime = DateTime(
-                              dateTime.year,
-                              dateTime.month,
-                              dateTime.day,
-                              startDateTime.hour,
-                              startDateTime.minute,
-                            );
-                          },
-                        ),
-                        TimePickerSpinner(
-                          is24HourMode: widget.is24HourMode ?? false,
-                          isShowSeconds: widget.isShowSeconds ?? false,
-                          normalTextStyle: widget.timeSpinnerTextStyle ??
-                              TextStyle(
-                                  fontSize: 18,
-                                  color: widget.calendarTextColor ??
-                                      Colors.black54),
-                          highlightedTextStyle: widget
-                                  .timeSpinnerHighlightedTextStyle ??
-                              TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      widget.calendarTextColor ?? Colors.black),
-                          time: startDateTime,
-                          onTimeChange: (dateTime) {
-                            DateTime tempStartDateTime = DateTime(
-                              startDateTime.year,
-                              startDateTime.month,
-                              startDateTime.day,
-                              dateTime.hour,
-                              dateTime.minute,
-                              dateTime.second,
-                            );
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
+                      CalendarDatePicker(
+                        initialDate: widget.startInitialDate ?? DateTime.now(),
+                        firstDate: widget.startFirstDate ??
+                            DateTime.now().subtract(const Duration(days: 3652)),
+                        lastDate: widget.startLastDate ??
+                            DateTime.now().add(const Duration(days: 3652)),
+                        onDateChanged: (dateTime) {
+                          startDateTime = DateTime(
+                            dateTime.year,
+                            dateTime.month,
+                            dateTime.day,
+                            startDateTime.hour,
+                            startDateTime.minute,
+                          );
+                        },
+                      ),
+                      TimePickerSpinner(
+                        is24HourMode: widget.is24HourMode ?? false,
+                        isShowSeconds: widget.isShowSeconds ?? false,
+                        normalTextStyle: widget.timeSpinnerTextStyle ??
+                            TextStyle(
+                                fontSize: 18,
+                                color:
+                                    widget.calendarTextColor ?? Colors.black54),
+                        highlightedTextStyle: widget
+                                .timeSpinnerHighlightedTextStyle ??
+                            TextStyle(
+                                fontSize: 24,
+                                color:
+                                    widget.calendarTextColor ?? Colors.black),
+                        time: startDateTime,
+                        onTimeChange: (dateTime) {
+                          DateTime tempStartDateTime = DateTime(
+                            startDateTime.year,
+                            startDateTime.month,
+                            startDateTime.day,
+                            dateTime.hour,
+                            dateTime.minute,
+                            dateTime.second,
+                          );
 
-                            startDateTime = tempStartDateTime;
-                          },
-                        ),
-                      ],
-                    ),
+                          startDateTime = tempStartDateTime;
+                        },
+                      ),
+                    ],
                   ),
 
                   /// End date
-                  SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CalendarDatePicker(
-                          initialDate: widget.endInitialDate ??
-                              DateTime.now().add(const Duration(days: 1)),
-                          firstDate: widget.endFirstDate ??
-                              DateTime.now()
-                                  .subtract(const Duration(days: 3652)),
-                          lastDate: widget.endLastDate ??
-                              DateTime.now().add(const Duration(days: 3652)),
-                          onDateChanged: (dateTime) {
-                            endDateTime = DateTime(
-                              dateTime.year,
-                              dateTime.month,
-                              dateTime.day,
-                              endDateTime.hour,
-                              endDateTime.minute,
-                            );
-                          },
-                        ),
-                        TimePickerSpinner(
-                          is24HourMode: widget.is24HourMode ?? false,
-                          isShowSeconds: widget.isShowSeconds ?? false,
-                          normalTextStyle: widget.timeSpinnerTextStyle ??
-                              TextStyle(
-                                  fontSize: 18,
-                                  color: widget.calendarTextColor ??
-                                      Colors.black54),
-                          highlightedTextStyle: widget
-                                  .timeSpinnerHighlightedTextStyle ??
-                              TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      widget.calendarTextColor ?? Colors.black),
-                          time: endDateTime,
-                          onTimeChange: (dateTime) {
-                            DateTime tempEndDateTime = DateTime(
-                              endDateTime.year,
-                              endDateTime.month,
-                              endDateTime.day,
-                              dateTime.hour,
-                              dateTime.minute,
-                              dateTime.second,
-                            );
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
+                      CalendarDatePicker(
+                        initialDate: widget.endInitialDate ??
+                            DateTime.now().add(const Duration(days: 1)),
+                        firstDate: widget.endFirstDate ??
+                            DateTime.now().subtract(const Duration(days: 3652)),
+                        lastDate: widget.endLastDate ??
+                            DateTime.now().add(const Duration(days: 3652)),
+                        onDateChanged: (dateTime) {
+                          endDateTime = DateTime(
+                            dateTime.year,
+                            dateTime.month,
+                            dateTime.day,
+                            endDateTime.hour,
+                            endDateTime.minute,
+                          );
+                        },
+                      ),
+                      TimePickerSpinner(
+                        is24HourMode: widget.is24HourMode ?? false,
+                        isShowSeconds: widget.isShowSeconds ?? false,
+                        normalTextStyle: widget.timeSpinnerTextStyle ??
+                            TextStyle(
+                                fontSize: 18,
+                                color:
+                                    widget.calendarTextColor ?? Colors.black54),
+                        highlightedTextStyle: widget
+                                .timeSpinnerHighlightedTextStyle ??
+                            TextStyle(
+                                fontSize: 24,
+                                color:
+                                    widget.calendarTextColor ?? Colors.black),
+                        time: endDateTime,
+                        onTimeChange: (dateTime) {
+                          DateTime tempEndDateTime = DateTime(
+                            endDateTime.year,
+                            endDateTime.month,
+                            endDateTime.day,
+                            dateTime.hour,
+                            dateTime.minute,
+                            dateTime.second,
+                          );
 
-                            endDateTime = tempEndDateTime;
-                          },
-                        ),
-                      ],
-                    ),
+                          endDateTime = tempEndDateTime;
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ][_tabController.index],
               ),
             ),
             Container(
